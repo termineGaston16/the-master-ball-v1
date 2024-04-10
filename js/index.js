@@ -1,4 +1,51 @@
-/* Restauramos el main principal */
+/* click en search (funciones) */
+let pokemonesBuscados = [];
+let listaDividida = [];
+let inicio = 0;
+let final = 10;
+let listaOriginal = [];
+let ordenDecreciente = false;
+
+/* --------------------------------- */
+/* Añadir función al menú organizador */
+
+/* ordenar decrecientemente */
+document.querySelector("#btnOrdenarDecreciente").addEventListener("click", () => {
+
+    /* actualizar datos */
+    let listaOrganizada = listaOriginal.slice();
+    listaDividida = [];
+    inicio = 0;
+    final = 10;
+    ordenDecreciente = true;
+
+    /* organizar la lista */
+    reCargarLosDatos(listaOrganizada);
+
+})
+
+/* --------------------------------- */
+/* Añadir función al boton cargar más */
+document.querySelector("#btnCargarMasCartas").addEventListener("click", function () {
+
+    /* actualizar datos */
+    inicio = final;
+    final += 10;
+    listaDividida = [];
+
+    /* cargar otros diez más */
+    cargarMasCartas(listaDividida, pokemonesBuscados, inicio, final, cargarPokemones);
+
+    /* si ya se recorren todos ocultar el boton de cargar mas */
+    if (final >= pokemonesBuscados.length) {
+        document.querySelector("#btnCargarMasCartas").classList.add("d-none")
+    }
+});
+
+/* --------------------------------- */
+/* Funciones */
+
+/* restauramos el main principal */
 function restaurarMenu() {
 
     document.querySelector("#menuConBotones").innerHTML = `
@@ -15,6 +62,7 @@ function restaurarMenu() {
     if (!document.querySelector("#menuOrdenador").classList.contains("d-none")) {
         document.querySelector("#menuOrdenador").classList.add("d-none")
     }
+    ordenDecreciente = false;
 
     /* --------------------------------- */
     /* Cambiar el titulo al pasar mouse por los botones */
@@ -95,6 +143,7 @@ function restaurarMenu() {
             if (!document.querySelector("#menuOrdenador").classList.contains("d-none")) {
                 document.querySelector("#menuOrdenador").classList.add("d-none")
             }
+            ordenDecreciente = false;
 
             /* obtener la palabra escrita */
             let palabraEscrita = null;
@@ -107,9 +156,10 @@ function restaurarMenu() {
             }
 
             /* obtener una lista de pokemones según la palabra */
-            let pokemonesBuscados = [];
-            let inicio = 0;
-            let final = 10;
+            pokemonesBuscados = [];
+            listaDividida = [];
+            inicio = 0;
+            final = 10;
             document.querySelector("#tituloDescriptivo").innerHTML = `
                 Realiza una búsqueda global mediante el nombre del Pokémon.
             `
@@ -117,7 +167,6 @@ function restaurarMenu() {
             fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
                 .then(response => response.json())
                 .then(todosLosPokemones => {
-
 
                     pokemonesBuscados = todosLosPokemones.results.filter(pokemon => pokemon.name.toLowerCase().includes(palabraEscrita.toLowerCase()));
 
@@ -127,45 +176,26 @@ function restaurarMenu() {
                         return;
                     }
 
+                    /* almacenarla como lista original */
+                    listaOriginal = pokemonesBuscados;
+
                     /* desocultar el menu organizador */
                     document.querySelector("#menuOrdenador").classList.remove("d-none")
 
-                    /* si la lista supera los 10 pokemones hacer visible el boton y darle su funcion */
-                    if (pokemonesBuscados.length > 10) {
-                        document.querySelector("#btnCargarMasCartas").classList.remove("d-none")
+                    /* si el tamaño de la lista es menor o igual que diez cargar todos los pokemones. 
+                        De lo contrario, cargar cada diez en otra lista */
+                    if (pokemonesBuscados.length <= 10) {
+                        cargarPokemones(pokemonesBuscados)
 
-                        /* darle funcion al boton de cargar más */
-                        document.querySelector("#btnCargarMasCartas").addEventListener("click", () => {
+                    } else {
 
-                            inicio = final;
-                            final += 10;
-                            cargarPokemones(inicio, final)
-                        })
+                        /* cargar los primeros diez */
+                        cargarMasCartas(listaDividida, pokemonesBuscados, inicio, final, cargarPokemones);
+
+                        /* hacer visible el botón de cargar más pokemones */
+                        document.querySelector("#btnCargarMasCartas").classList.remove("d-none");
                     }
 
-                    /* cargar pokemones base */
-                    function cargarPokemones(inicio, final) {
-
-                        /* si ya se recorren todos ocultar el boton de cargar mas */
-                        if (final >= pokemonesBuscados.length) {
-                            document.querySelector("#btnCargarMasCartas").classList.add("d-none")
-                        }
-
-                        /* crear la planilla de la carta y agregarla a la tabla */
-                        pokemonesBuscados.slice(inicio, final).forEach(pokemon => {
-
-                            let planillaCartaPokemon = document.createElement("div")
-                            planillaCartaPokemon.classList.add("col")
-                            planillaCartaPokemon.id = "cartaDe" + pokemon.name;
-                            planillaCartaPokemon.innerHTML = `${pokemon.name}`
-
-                            if (!document.getElementById("cartaDe" + pokemon.name)) {
-                                document.querySelector("#tablaDeCartas").append(planillaCartaPokemon)
-                            }
-
-                        });
-                    }
-                    cargarPokemones(inicio, final)
 
                 })
                 .catch(error => console.error('Error al cargar todos los pokemones: ', error));
@@ -175,8 +205,74 @@ function restaurarMenu() {
     })
 }
 
+/* cargar pokemon */
+function cargarPokemones(listaPokemon) {
+
+    /* crear la planilla de la carta y agregarla a la tabla */
+    listaPokemon.forEach(pokemon => {
+
+        let planillaCartaPokemon = document.createElement("div")
+        planillaCartaPokemon.classList.add("col")
+        planillaCartaPokemon.id = "cartaDe" + pokemon.name;
+        planillaCartaPokemon.innerHTML = `${pokemon.name}`
+
+        if (!document.getElementById("cartaDe" + pokemon.name)) {
+            document.querySelector("#tablaDeCartas").append(planillaCartaPokemon)
+        }
+
+    });
+
+}
+
+/* cargar más cartas */
+function cargarMasCartas(listaADividir, listaCompleta, datoIniciador, datoFinalizador, callback) {
+
+    /* cargar listas ordenadas */
+    if (ordenDecreciente) {
+        listaOrganizada = listaOriginal.slice();
+        listaCompleta = listaOrganizada.reverse();
+    }
+
+
+    listaADividir = listaCompleta.slice(datoIniciador, datoFinalizador);
+    callback(listaADividir);
+
+}
+
+/* volver a cagar los datos con la lista organizada */
+function reCargarLosDatos(listaOrganizada) {
+
+    /* re-ajustar el index, borrando los resultados y ocultar el boton de cargar más y ordernar por */
+    document.querySelector("#tablaDeCartas").innerHTML = "";
+    if (!document.querySelector("#btnCargarMasCartas").classList.contains("d-none")) {
+        document.querySelector("#btnCargarMasCartas").classList.add("d-none")
+    }
+    if (!document.querySelector("#menuOrdenador").classList.contains("d-none")) {
+        document.querySelector("#menuOrdenador").classList.add("d-none")
+    }
+
+    /* desocultar el menu organizador */
+    document.querySelector("#menuOrdenador").classList.remove("d-none")
+
+    /* si el tamaño de la lista es menor o igual que diez cargar todos los pokemones. 
+        De lo contrario, cargar cada diez en otra lista */
+    if (listaOrganizada.length <= 10) {
+        cargarPokemones(listaOrganizada)
+
+    } else {
+
+        /* cargar los primeros diez */
+        cargarMasCartas(listaDividida, listaOrganizada, inicio, final, cargarPokemones);
+
+        /* hacer visible el botón de cargar más pokemones */
+        document.querySelector("#btnCargarMasCartas").classList.remove("d-none");
+    }
+
+}
+
+
 /* --------------------------------- */
-/* Funciones */
+/* Restauramos el main principal */
 restaurarMenu();
 
 

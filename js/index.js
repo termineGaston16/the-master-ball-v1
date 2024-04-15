@@ -341,6 +341,34 @@ function cargarPokemones(listaPokemon) {
                     </div>
 
                     <!-- main -->
+                    <div class="container-fluid" id="menuMainCarta${pokemon.name}">
+
+                        <!-- menú 1 -->
+                        <div class="ficha${pokemon.name}">
+                            
+                            <!-- categoría -->
+                            <div>
+                                <p id="categoriaDelPokemon${pokemon.name}"></p>
+                            </div>
+
+                            <!-- altura y peso -->
+                            <div>
+                                <p id="alturaDelPokemon${pokemon.name}"></p>
+                                <p id="pesoDelPokemon${pokemon.name}"></p>
+                            </div>
+
+                            <!-- habilidades -->
+                            <div id="habilidadesDelPokemon${pokemon.name}">
+                            </div>
+                        </div>
+
+                        <!-- menú 2 -->
+                        <div class="ficha${pokemon.name}">Menú 2</div>
+                        <!-- menú 3 -->
+                        <div class="ficha${pokemon.name}">Menú 3</div>
+                        <!-- menú 4 -->
+                        <div class="ficha${pokemon.name}">Menú 4</div>
+                    </div>
 
                     <!-- footer -->
 
@@ -349,12 +377,12 @@ function cargarPokemones(listaPokemon) {
 
                 <!-- MENÚ DE PANELES -->
                 <div>
-                    <button type="button" class="btn">
+                    <button type="button" class="btn" id="btnFichaPrev${pokemon.name}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
                             <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
                         </svg>
                     </button>
-                    <button type="button" class="btn">
+                    <button type="button" class="btn" id="btnFichaNext${pokemon.name}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
                             <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
                         </svg>
@@ -385,7 +413,7 @@ function cargarPokemones(listaPokemon) {
                             if (nombreDeLaEvoluciónAnteriorDelPokemon != null) {
                                 document.getElementById("evolucionDePokemonAnterior" + pokemon.name).innerHTML = `
                                 Evolución de ${nombreDeLaEvoluciónAnteriorDelPokemon}.
-                            `
+                                `
                             } else {
                                 document.getElementById("evolucionDePokemonAnterior" + pokemon.name).innerHTML = `
                                 Evolución base.`
@@ -395,6 +423,21 @@ function cargarPokemones(listaPokemon) {
                             document.getElementById("evolucionDePokemonAnterior" + pokemon.name).innerHTML = `
                                 Evolución base.`
                         }
+
+                        /* categoría */
+                        let categoriaDelPokemonEs = pokeSpecies.genera["5"].genus;
+                        let categoriaDelPokemonEn = pokeSpecies.genera["7"].genus;
+
+                        if (categoriaDelPokemonEs != null) {
+                            document.getElementById("categoriaDelPokemon" + pokemon.name).innerHTML = `
+                                ${categoriaDelPokemonEs}
+                            `
+                        } else {
+                            document.getElementById("categoriaDelPokemon" + pokemon.name).innerHTML = `
+                                ${categoriaDelPokemonEn}
+                            `
+                        }
+
                     })
                     .catch(error => console.error('Error al cargar (datosPokemon.species): ', error));
 
@@ -472,11 +515,93 @@ function cargarPokemones(listaPokemon) {
                                 `
                             }
 
-                           document.getElementById("tiposDePokemonPara" + pokemon.name).append(casilleroValor)
+                            document.getElementById("tiposDePokemonPara" + pokemon.name).append(casilleroValor)
 
                         })
                         .catch(error => console.error('Error al cargar (slot.type.url): ', error));
                 })
+
+                /* altura */
+                let alturaDeLaApi = datosPokemon.height;
+                let alturaPasadaAMetros = (alturaDeLaApi / 10).toFixed(1);
+                document.getElementById("alturaDelPokemon" + pokemon.name).innerHTML = `
+                    ${alturaPasadaAMetros}
+                `
+
+                /* peso */
+                let pesoDeLaApi = datosPokemon.weight;
+                let pesoPasadaAKilos = (pesoDeLaApi / 10).toFixed(1);
+                document.getElementById("pesoDelPokemon" + pokemon.name).innerHTML = `
+                    ${pesoPasadaAKilos}
+                `
+
+                /* habilidades */
+                datosPokemon.abilities.forEach(ability => {
+
+                    fetch(ability.ability.url)
+                        .then(response => response.json())
+                        .then(abilityDatos => {
+
+                            let nombreDeHabilidadEs = abilityDatos.names["5"].name;
+
+                            /* distintas descripciones de habilidades segun la versión de juego */
+                            let descripcionDeHabilidadEsVer1 = abilityDatos.flavor_text_entries["13"].flavor_text;
+                            let descripcionDeHabilidadEsVer2 = abilityDatos.flavor_text_entries["21"].flavor_text;
+                            let descripcionDeHabilidadEsVer3 = abilityDatos.flavor_text_entries["30"].flavor_text;
+                            let descripcionDeHabilidadEsVer4 = abilityDatos.flavor_text_entries["40"].flavor_text;
+                            let descripcionDeHabilidadEsVer5 = abilityDatos.flavor_text_entries["50"].flavor_text;
+                            let descripcionDeHabilidadEsVer6 = abilityDatos.flavor_text_entries["60"].flavor_text;
+                            /* --------- */
+
+                            let habilidadContenedor = document.createElement("div");
+                            habilidadContenedor.style = "overflow: auto;"
+
+                            switch (true) {
+                                case descripcionDeHabilidadEsVer1 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
+                                    habilidadContenedor.innerHTML = `
+                                        <h6>${nombreDeHabilidadEs}</h6>
+                                        <p>${descripcionDeHabilidadEsVer1}</p>
+                                    `;
+                                    break;
+                                case descripcionDeHabilidadEsVer2 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
+                                    habilidadContenedor.innerHTML = `
+                                        <h6>${nombreDeHabilidadEs}</h6>
+                                        <p>${descripcionDeHabilidadEsVer2}</p>
+                                    `;
+                                    break;
+                                case descripcionDeHabilidadEsVer3 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
+                                    habilidadContenedor.innerHTML = `
+                                        <h6>${nombreDeHabilidadEs}</h6>
+                                        <p>${descripcionDeHabilidadEsVer3}</p>
+                                    `;
+                                    break;
+                                case descripcionDeHabilidadEsVer4 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
+                                    habilidadContenedor.innerHTML = `
+                                        <h6>${nombreDeHabilidadEs}</h6>
+                                        <p>${descripcionDeHabilidadEsVer4}</p>
+                                    `;
+                                    break;
+                                case descripcionDeHabilidadEsVer5 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
+                                    habilidadContenedor.innerHTML = `
+                                        <h6>${nombreDeHabilidadEs}</h6>
+                                        <p>${descripcionDeHabilidadEsVer5}</p>
+                                    `;
+                                    break;
+                                case descripcionDeHabilidadEsVer6 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
+                                    habilidadContenedor.innerHTML = `
+                                        <h6>${nombreDeHabilidadEs}</h6>
+                                        <p>${descripcionDeHabilidadEsVer6}</p>
+                                    `;
+                                    break;
+                            }
+
+
+                            document.getElementById("habilidadesDelPokemon" + pokemon.name).append(habilidadContenedor)
+
+
+                        })
+                        .catch(error => console.error('Error al cargar (ability.url): ', error));
+                });
 
             })
             .catch(error => console.error('Error al cargar datos del pokemon: ', error));
@@ -486,6 +611,42 @@ function cargarPokemones(listaPokemon) {
         if (!document.getElementById("cartaDe" + pokemon.name)) {
             document.querySelector("#tablaDeCartas").append(planillaCartaPokemon)
         }
+
+
+        /* menú carrusel main carta */
+        let prevBtn = document.getElementById("btnFichaPrev" + pokemon.name);
+        let nextBtn = document.getElementById("btnFichaNext" + pokemon.name);
+        let fichas = document.getElementsByClassName("ficha" + pokemon.name);
+
+        let currentIndex = 0;
+
+        for (let i = 1; i < fichas.length; i++) {
+            fichas[i].classList.add("d-none");
+        }
+
+        prevBtn.addEventListener('click', () => {
+
+            /* ocultar la ficha actual */
+            fichas[currentIndex].classList.add("d-none");
+
+            /* actualizar el índice */
+            currentIndex = (currentIndex - 1 + fichas.length) % fichas.length;
+
+            /* mostrar la nueva ficha */
+            fichas[currentIndex].classList.remove("d-none");
+        });
+
+        nextBtn.addEventListener('click', () => {
+
+            /* ocultar la ficha actual */
+            fichas[currentIndex].classList.add("d-none");
+
+            /* actualizar el índice */
+            currentIndex = (currentIndex + 1) % fichas.length;
+
+            /* mostrar la nueva ficha */
+            fichas[currentIndex].classList.remove("d-none");
+        });
 
     });
 

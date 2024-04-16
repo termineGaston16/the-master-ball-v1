@@ -363,9 +363,33 @@ function cargarPokemones(listaPokemon) {
                         </div>
 
                         <!-- menú 2 -->
-                        <div class="ficha${pokemon.name}">Menú 2</div>
+                        <div class="ficha${pokemon.name}">
+                        
+                            <!-- ps y ataque -->
+                            <div>
+                                <p id="psDelPokemon${pokemon.name}"></p>
+                                <p id="ataqueDelPokemon${pokemon.name}"></p>
+                            </div>
+
+                            <!-- defensa y  ataque especial -->
+                            <div>
+                                <p id="defensaDelPokemon${pokemon.name}"></p>
+                                <p id="ataqueEspecialDelPokemon${pokemon.name}"></p>
+                            </div>
+
+                            <!-- defensa especial y velocidad -->
+                            <div>
+                                <p id="defensaEspecialDelPokemon${pokemon.name}"></p>
+                                <p id="velocidadDelPokemon${pokemon.name}"></p>
+                            </div>
+                        
+                        </div>
+
                         <!-- menú 3 -->
-                        <div class="ficha${pokemon.name}">Menú 3</div>
+                        <div class="ficha${pokemon.name}" id="fichaDeEvoluciones${pokemon.name}">
+                        </div>
+
+
                         <!-- menú 4 -->
                         <div class="ficha${pokemon.name}">Menú 4</div>
                     </div>
@@ -425,8 +449,22 @@ function cargarPokemones(listaPokemon) {
                         }
 
                         /* categoría */
-                        let categoriaDelPokemonEs = pokeSpecies.genera["5"].genus;
-                        let categoriaDelPokemonEn = pokeSpecies.genera["7"].genus;
+                        let categoriaDelPokemonEs = null;
+                        let categoriaDelPokemonEn = null;
+
+                        pokeSpecies.genera.forEach(genus => {
+                            if (genus.language.name == "es") {
+                                categoriaDelPokemonEs = genus.genus;
+                                return;
+                            }
+                        });
+
+                        pokeSpecies.genera.forEach(genus => {
+                            if (genus.language.name == "en") {
+                                categoriaDelPokemonEn = genus.genus;
+                                return;
+                            }
+                        });
 
                         if (categoriaDelPokemonEs != null) {
                             document.getElementById("categoriaDelPokemon" + pokemon.name).innerHTML = `
@@ -437,6 +475,28 @@ function cargarPokemones(listaPokemon) {
                                 ${categoriaDelPokemonEn}
                             `
                         }
+
+                        /* evoluciones */
+                        fetch(pokeSpecies.evolution_chain.url)
+                            .then(response => response.json())
+                            .then(cicloEvolutivo => {
+
+                                let primeraEvolucion = null;
+                                primeraEvolucion = cicloEvolutivo.chain.species.name;
+
+                                let fichaEvolutiva = document.createElement("div");
+                                fichaEvolutiva.innerHTML=`
+                                    ${primeraEvolucion}
+                                `
+                                document.getElementById("fichaDeEvoluciones"+pokemon.name).append(fichaEvolutiva)
+
+                                /* verificar si hay mas evoluciones */
+                                do {
+                                    
+                                } while (condition);
+
+                            })
+                            .catch(error => console.error('Error al cargar (pokeSpecies.evolution_chain.url): ', error));
 
                     })
                     .catch(error => console.error('Error al cargar (datosPokemon.species): ', error));
@@ -449,15 +509,20 @@ function cargarPokemones(listaPokemon) {
                 fotoChibiDelPokemonVer2 = datosPokemon.sprites.front_default;
                 fotoChibiDelPokemonVer3 = datosPokemon.sprites.other["official-artwork"].front_default;
 
-                if (fotoChibiDelPokemonVer1 != null) {
-                    document.getElementById("fotoChibi" + pokemon.name).src = fotoChibiDelPokemonVer1;
-                } else if (fotoChibiDelPokemonVer2 != null) {
-                    document.getElementById("fotoChibi" + pokemon.name).src = fotoChibiDelPokemonVer2;
-                } else if (fotoChibiDelPokemonVer3 != null) {
-                    document.getElementById("fotoChibi" + pokemon.name).src = fotoChibiDelPokemonVer3;
-                } else {
-                    document.getElementById("fotoChibi" + pokemon.name).src = "../img/index/logoFavicon.png";
-                    document.getElementById("fotoChibi" + pokemon.name).classList.add("w-50")
+                switch (true) {
+                    case fotoChibiDelPokemonVer1 !== null:
+                        document.getElementById("fotoChibi" + pokemon.name).src = fotoChibiDelPokemonVer1;
+                        break;
+                    case fotoChibiDelPokemonVer2 !== null:
+                        document.getElementById("fotoChibi" + pokemon.name).src = fotoChibiDelPokemonVer2;
+                        break;
+                    case fotoChibiDelPokemonVer3 !== null:
+                        document.getElementById("fotoChibi" + pokemon.name).src = fotoChibiDelPokemonVer3;
+                        break;
+                    default:
+                        document.getElementById("fotoChibi" + pokemon.name).src = "../img/index/logoFavicon.png";
+                        document.getElementById("fotoChibi" + pokemon.name).classList.add("w-50");
+                        break;
                 }
 
                 /* nombre del pokemon */
@@ -543,65 +608,119 @@ function cargarPokemones(listaPokemon) {
                         .then(abilityDatos => {
 
                             let nombreDeHabilidadEs = abilityDatos.names["5"].name;
+                            let descripcionDeHabilidadEs = null;
+                            let descripcionDeHabilidadEn = null;
 
-                            /* distintas descripciones de habilidades segun la versión de juego */
-                            let descripcionDeHabilidadEsVer1 = abilityDatos.flavor_text_entries["13"].flavor_text;
-                            let descripcionDeHabilidadEsVer2 = abilityDatos.flavor_text_entries["21"].flavor_text;
-                            let descripcionDeHabilidadEsVer3 = abilityDatos.flavor_text_entries["30"].flavor_text;
-                            let descripcionDeHabilidadEsVer4 = abilityDatos.flavor_text_entries["40"].flavor_text;
-                            let descripcionDeHabilidadEsVer5 = abilityDatos.flavor_text_entries["50"].flavor_text;
-                            let descripcionDeHabilidadEsVer6 = abilityDatos.flavor_text_entries["60"].flavor_text;
+                            /* recorrer y buscar el que esté en español */
+                            abilityDatos.flavor_text_entries.forEach(flavor_text => {
+                                if (flavor_text.language.name == "es") {
+                                    descripcionDeHabilidadEs = flavor_text.flavor_text;
+                                    return;
+                                }
+                            });
+
+                            /* recorrer y buscar el que esté en ingles */
+                            abilityDatos.flavor_text_entries.forEach(flavor_text => {
+                                if (flavor_text.language.name == "en") {
+                                    descripcionDeHabilidadEn = flavor_text.flavor_text;
+                                    return;
+                                }
+                            });
+
                             /* --------- */
 
                             let habilidadContenedor = document.createElement("div");
-                            habilidadContenedor.style = "overflow: auto;"
 
-                            switch (true) {
-                                case descripcionDeHabilidadEsVer1 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
-                                    habilidadContenedor.innerHTML = `
-                                        <h6>${nombreDeHabilidadEs}</h6>
-                                        <p>${descripcionDeHabilidadEsVer1}</p>
-                                    `;
-                                    break;
-                                case descripcionDeHabilidadEsVer2 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
-                                    habilidadContenedor.innerHTML = `
-                                        <h6>${nombreDeHabilidadEs}</h6>
-                                        <p>${descripcionDeHabilidadEsVer2}</p>
-                                    `;
-                                    break;
-                                case descripcionDeHabilidadEsVer3 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
-                                    habilidadContenedor.innerHTML = `
-                                        <h6>${nombreDeHabilidadEs}</h6>
-                                        <p>${descripcionDeHabilidadEsVer3}</p>
-                                    `;
-                                    break;
-                                case descripcionDeHabilidadEsVer4 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
-                                    habilidadContenedor.innerHTML = `
-                                        <h6>${nombreDeHabilidadEs}</h6>
-                                        <p>${descripcionDeHabilidadEsVer4}</p>
-                                    `;
-                                    break;
-                                case descripcionDeHabilidadEsVer5 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
-                                    habilidadContenedor.innerHTML = `
-                                        <h6>${nombreDeHabilidadEs}</h6>
-                                        <p>${descripcionDeHabilidadEsVer5}</p>
-                                    `;
-                                    break;
-                                case descripcionDeHabilidadEsVer6 != null && abilityDatos.flavor_text_entries["13"].language.name == "es":
-                                    habilidadContenedor.innerHTML = `
-                                        <h6>${nombreDeHabilidadEs}</h6>
-                                        <p>${descripcionDeHabilidadEsVer6}</p>
-                                    `;
-                                    break;
+                            if (descripcionDeHabilidadEs != null) {
+                                habilidadContenedor.innerHTML = `
+                                    <h6>${nombreDeHabilidadEs}</h6>
+                                    <p>${descripcionDeHabilidadEs}<p>
+                                `
+                            } else {
+                                habilidadContenedor.innerHTML = `
+                                    <h6>${nombreDeHabilidadEs}</h6>
+                                    <p>${descripcionDeHabilidadEn}<p>
+                                `
                             }
 
-
                             document.getElementById("habilidadesDelPokemon" + pokemon.name).append(habilidadContenedor)
-
 
                         })
                         .catch(error => console.error('Error al cargar (ability.url): ', error));
                 });
+
+
+                /* PS */
+                let psDelPokemon = null;
+                psDelPokemon = datosPokemon.stats["0"].base_stat;
+
+                if (psDelPokemon != null) {
+                    document.getElementById("psDelPokemon" + pokemon.name).innerHTML = `
+                        ${psDelPokemon}
+                    `
+                } else {
+                    document.getElementById("psDelPokemon" + pokemon.name).innerHTML = `??`
+                }
+
+                /* ataque */
+                let ataqueDelPokemon = null;
+                ataqueDelPokemon = datosPokemon.stats["1"].base_stat;
+
+                if (ataqueDelPokemon != null) {
+                    document.getElementById("ataqueDelPokemon" + pokemon.name).innerHTML = `
+                        ${ataqueDelPokemon}
+                    `
+                } else {
+                    document.getElementById("ataqueDelPokemon" + pokemon.name).innerHTML = `??`
+                }
+
+                /* defensa */
+                let defensaDelPokemon = null;
+                defensaDelPokemon = datosPokemon.stats["2"].base_stat;
+
+                if (defensaDelPokemon != null) {
+                    document.getElementById("defensaDelPokemon" + pokemon.name).innerHTML = `
+                        ${defensaDelPokemon}
+                    `
+                } else {
+                    document.getElementById("defensaDelPokemon" + pokemon.name).innerHTML = `??`
+                }
+
+                /* ataque especial */
+                let ataqueEspecialDelPokemon = null;
+                ataqueEspecialDelPokemon = datosPokemon.stats["3"].base_stat;
+
+                if (ataqueEspecialDelPokemon != null) {
+                    document.getElementById("ataqueEspecialDelPokemon" + pokemon.name).innerHTML = `
+                        ${ataqueEspecialDelPokemon}
+                    `
+                } else {
+                    document.getElementById("ataqueEspecialDelPokemon" + pokemon.name).innerHTML = `??`
+                }
+
+                /* defensa especial */
+                let defensaEspecialDelPokemon = null;
+                defensaEspecialDelPokemon = datosPokemon.stats["4"].base_stat;
+
+                if (defensaEspecialDelPokemon != null) {
+                    document.getElementById("defensaEspecialDelPokemon" + pokemon.name).innerHTML = `
+                        ${defensaEspecialDelPokemon}
+                    `
+                } else {
+                    document.getElementById("defensaEspecialDelPokemon" + pokemon.name).innerHTML = `??`
+                }
+
+                /* velocidad */
+                let velocidadDelPokemon = null;
+                velocidadDelPokemon = datosPokemon.stats["5"].base_stat;
+
+                if (velocidadDelPokemon != null) {
+                    document.getElementById("velocidadDelPokemon" + pokemon.name).innerHTML = `
+                        ${velocidadDelPokemon}
+                    `
+                } else {
+                    document.getElementById("velocidadDelPokemon" + pokemon.name).innerHTML = `??`
+                }
 
             })
             .catch(error => console.error('Error al cargar datos del pokemon: ', error));

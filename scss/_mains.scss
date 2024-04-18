@@ -1,0 +1,132 @@
+/* main index */
+.mainIndex {
+    @include allCentro;
+    flex-direction: column;
+    margin-top: 5%;
+
+    /* titulo descriptivo */
+    .mainIndexTitutloDescriptivo {
+        color: white;
+        font-size: 1.5rem;
+        font-style: italic;
+        text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.761);
+    }
+
+    /* menú con botones */
+    .mainIndexMenuConBotones {
+        text-align: center;
+
+        .btnMenuIndex {
+            text-align: center;
+            color: white;
+            font-weight: 150;
+            transition: 0.5s;
+
+            &:hover {
+                border: 1px solid white;
+                border-radius: 15px;
+                text-shadow: 0px 0px 10px white;
+                font-weight: 300;
+                background-color: rgba(255, 255, 255, 0.134);
+            }
+        }
+
+        /* buscador */
+        .buscadorPokemon {
+            @include allCentro;
+            flex-direction: row;
+            width: 100%;
+
+            border: 1px solid white;
+            border-radius: 100px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.353), rgba(255, 255, 255, 0.148));
+
+            /* btn return */
+            .buscadorPokemonBtnReturn,
+            .buscadorPokemonBtnSearch {
+                color: white;
+                transition: 0.3s;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+
+                &:active {
+                    border: none;
+                }
+
+                &:focus {
+                    border: none;
+                }
+
+            }
+
+            /* buscador input */
+            .buscadorPokemonInput {
+                background-color: rgba(255, 255, 255, 0);
+                border: none;
+
+                color: white;
+                font-weight: 200;
+                text-shadow: 0px 0px 10px white;
+
+                &:focus {
+                    box-shadow: none;
+                }
+
+                &::-webkit-search-cancel-button {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    /* tabla con cartas */
+    .mainIndexTablaConCartas {
+        @include allCentro;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 3%;
+     
+        .mainIndexTablaConCartasSub {
+
+            /* ordernar por */
+            .mainIndexTablaConCartasOrdernarPor {
+                margin: 2% 0px 5% 0px;
+                border: 1px solid white;
+                padding: 3% 0px;
+                border-radius: 20px;
+                background-color: rgba(255, 255, 255, 0.139);
+                font-weight: 200;
+
+                .mainIndexTablaConCartasOrdernarPorText {
+                    color: white;
+                    text-shadow: 0px 0px 5px white;
+                    font-size: 1.5rem;
+                }
+
+                .mainIndexTablaConCartasOrdernarPorDiv {
+                    .btnOrdernar {
+                        color: white;
+                        font-weight: 150;
+                        transition: 0.3s;
+
+                        &:focus{
+                           border: 1px solid white;
+                           font-weight: 500;
+                            text-shadow: 0px 0px 10px white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* boton cargar más */
+    .btnCargarMas{
+        background-color: white;
+        color: rgb(79, 64, 249);
+        margin: 5% 0px;
+
+    }
+}

@@ -13,9 +13,14 @@
 
     <!-- ------------------------------------ -->
     <!-- CSS -->
-   
+    <link rel="stylesheet" href="css/style.css">
+
     <!-- ------------------------------------ -->
     <!-- ESTILO DE FUENTE EXTERNA -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
 
     <!-- ------------------------------------ -->
     <!-- SEO -->
@@ -27,23 +32,25 @@
     Pokémon. ¡Comienza tu búsqueda ahora y atrapa la emoción en The Master Ball!">
 </head>
 
-<body>
+<body class="bodyIndex outfit-fontOne">
 
     <!-- HEADER -->
-    <header class="container-fluid">
+    <header class="container-fluid headerIndex">
         <div
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <div class="col-md-3 mb-2 mb-md-0">
-                <a href="index.html" class="d-inline-flex">
-                    <img src="img/index/logoPrincipal.png" alt="logoPrincipal" class="w-100">
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom headerIndexSub">
+            <div class="col-md-3 mb-2 mb-md-0 headerIndexContenedorLogo">
+                <a href="index.html" class="d-inline-flex headerIndexContenedorLogoLink">
+                    <img src="img/index/logoPrincipal.png" alt="logoPrincipal" class="headerIndexContenedorLogoLinkImg">
                 </a>
             </div>
 
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="https://pokeapi.co/" target="_blank" class="nav-link px-2">API usada</a></li>
-                <li><a href="https://www.pokemon.com/el" target="_blank" class="nav-link px-2">Pokédex</a></li>
-                <li>
-                    <p class="col-md-4 mb-0 footerGlobalCopy">&copy; 2024 KDA/Nova</p>
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 headerIndexContenedorLogoUl">
+                <li class="headerIndexContenedorLogoUlLi"><a href="https://pokeapi.co/" target="_blank"
+                        class="nav-link px-2 headerIndexContenedorLogoUlLiLink">API usada</a></li>
+                <li class="headerIndexContenedorLogoUlLi"><a href="https://www.pokemon.com/el" target="_blank"
+                        class="nav-link px-2 headerIndexContenedorLogoUlLiLink">Pokédex</a></li>
+                <li class="headerIndexContenedorLogoUlLi">
+                    <p class="col-md-4 mb-0 globalCopy">&copy; 2024 KDA/Nova</p>
                 </li>
             </ul>
         </div>
@@ -51,30 +58,30 @@
 
     <!-- ------ -->
     <!-- MAIN -->
-    <main class="container-fluid">
+    <main class="container-fluid mainIndex">
 
         <!-- titulo descriptivo -->
-        <p id="tituloDescriptivo">¿Qué deseas hacer?</p>
+        <p id="tituloDescriptivo" class="mainIndexTitutloDescriptivo">¿Qué deseas hacer?</p>
 
         <!-- menú con botones -->
-        <div id="menuConBotones">
-            <button type="button" class="btn" id="btnBusquedaPokemon">Búsqueda Pokémon</button>
-            <button type="button" class="btn" id="btnFiltrarPokemones">Filtrar Pokemones</button>
-            <button type="button" class="btn" id="btnAnalisisAleatorio">Análisis Aleatorio</button>
+        <div id="menuConBotones" class="mainIndexMenuConBotones">
+            <button type="button" class="btn btnMenuIndex" id="btnBusquedaPokemon">Búsqueda Pokémon</button>
+            <button type="button" class="btn btnMenuIndex" id="btnFiltrarPokemones">Filtrar Pokemones</button>
+            <button type="button" class="btn btnMenuIndex" id="btnAnalisisAleatorio">Análisis Aleatorio</button>
         </div>
 
         <!-- tabla con cartas -->
-        <div id="tablaConCartas">
-            <div class="container-fluid">
+        <div id="tablaConCartas" class="mainIndexTablaConCartas">
+            <div class="container-fluid mainIndexTablaConCartasSub">
 
                 <!-- ordernar por -->
-                <div id="menuOrdenador" class="d-none">
-                    <p>Orden de los Pokémones: </p>
-                    <div>
-                        <button type="button" class="btn" id="btnOrdenarCreciente">Nº Creciente</button>
-                        <button type="button" class="btn" id="btnOrdenarDecreciente">Nº Decreciente</button>
-                        <button type="button" class="btn" id="btnOrdenarAlfabeticamente">Alfabéticamente</button>
-                        <button type="button" class="btn" id="btnOrdenarAlfaInverso">Alf. Inverso</button>
+                <div id="menuOrdenador" class="mainIndexTablaConCartasOrdernarPor d-none">
+                    <p class="mainIndexTablaConCartasOrdernarPorText">Orden de los Pokémones: </p>
+                    <div class="mainIndexTablaConCartasOrdernarPorDiv">
+                        <button type="button" class="btn btnOrdernar" id="btnOrdenarCreciente">Nº Creciente</button>
+                        <button type="button" class="btn btnOrdernar" id="btnOrdenarDecreciente">Nº Decreciente</button>
+                        <button type="button" class="btn btnOrdernar" id="btnOrdenarAlfabeticamente">Alfabéticamente</button>
+                        <button type="button" class="btn btnOrdernar" id="btnOrdenarAlfaInverso">Alf. Inverso</button>
                     </div>
                 </div>
 
@@ -83,13 +90,13 @@
                 </div>
 
                 <!-- boton cargar más -->
-                <button type="button" class="btn d-none" id="btnCargarMasCartas">Cargar más</button>
+                <button type="button" class="btn btnCargarMas d-none" id="btnCargarMasCartas">Cargar más</button>
             </div>
         </div>
 
 
     </main>
- 
+
     <!-- ------------------------------------ -->
     <!-- SWEET ALERT -->
 

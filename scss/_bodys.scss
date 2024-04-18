@@ -1,0 +1,8 @@
+/* body index */
+.bodyIndex {
+    @include allCentro;
+    flex-direction: column;
+
+    background: linear-gradient(to right, rgb(132, 0, 255), rgb(79, 64, 249));
+
+}

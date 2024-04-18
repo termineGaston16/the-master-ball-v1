@@ -1,0 +1,204 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {}
+html {
+  scroll-behavior: smooth;
+}
+
+/* IMPORTS */
+/* centrar todo */
+/* aparecer */
+@keyframes aparecer {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* desaparecer */
+@keyframes desaparecer {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* body index */
+.bodyIndex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(to right, rgb(132, 0, 255), rgb(79, 64, 249));
+}
+
+/* header index */
+.headerIndex {
+  background: linear-gradient(to bottom, rgb(239, 56, 242), rgb(67, 37, 238));
+  border-bottom: 1px solid white;
+  box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.583);
+}
+.headerIndex .headerIndexSub {
+  /* logo */
+  /* menú con links */
+}
+.headerIndex .headerIndexSub .headerIndexContenedorLogo .headerIndexContenedorLogoLink {
+  transition: 0.7s;
+}
+.headerIndex .headerIndexSub .headerIndexContenedorLogo .headerIndexContenedorLogoLink:hover {
+  transform: scale(1.1);
+}
+.headerIndex .headerIndexSub .headerIndexContenedorLogo .headerIndexContenedorLogoLink .headerIndexContenedorLogoLinkImg {
+  width: 100%;
+}
+.headerIndex .headerIndexSub .headerIndexContenedorLogoUl .headerIndexContenedorLogoUlLi .headerIndexContenedorLogoUlLiLink {
+  color: white;
+  font-style: italic;
+  font-weight: 500;
+  text-shadow: 3px 3px 0px black;
+  transition: 0.5s;
+}
+.headerIndex .headerIndexSub .headerIndexContenedorLogoUl .headerIndexContenedorLogoUlLi .headerIndexContenedorLogoUlLiLink:hover {
+  text-shadow: 0px 0px 10px white;
+  transform: scale(1.1);
+}
+.headerIndex .headerIndexSub .headerIndexContenedorLogoUl .headerIndexContenedorLogoUlLi .globalCopy {
+  width: 100%;
+  color: aqua;
+  text-shadow: 0px 0px 10px rgb(255, 255, 255);
+  font-style: italic;
+  font-weight: 500;
+  margin-top: 6%;
+}
+
+/* main index */
+.mainIndex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 5%;
+  /* titulo descriptivo */
+  /* menú con botones */
+  /* tabla con cartas */
+  /* boton cargar más */
+}
+.mainIndex .mainIndexTitutloDescriptivo {
+  color: white;
+  font-size: 1.5rem;
+  font-style: italic;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.761);
+}
+.mainIndex .mainIndexMenuConBotones {
+  text-align: center;
+  /* buscador */
+}
+.mainIndex .mainIndexMenuConBotones .btnMenuIndex {
+  text-align: center;
+  color: white;
+  font-weight: 150;
+  transition: 0.5s;
+}
+.mainIndex .mainIndexMenuConBotones .btnMenuIndex:hover {
+  border: 1px solid white;
+  border-radius: 15px;
+  text-shadow: 0px 0px 10px white;
+  font-weight: 300;
+  background-color: rgba(255, 255, 255, 0.134);
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  border: 1px solid white;
+  border-radius: 100px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.353), rgba(255, 255, 255, 0.148));
+  /* btn return */
+  /* buscador input */
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnReturn,
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnSearch {
+  color: white;
+  transition: 0.3s;
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnReturn:hover,
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnSearch:hover {
+  transform: scale(1.2);
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnReturn:active,
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnSearch:active {
+  border: none;
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnReturn:focus,
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonBtnSearch:focus {
+  border: none;
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonInput {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  color: white;
+  font-weight: 200;
+  text-shadow: 0px 0px 10px white;
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonInput:focus {
+  box-shadow: none;
+}
+.mainIndex .mainIndexMenuConBotones .buscadorPokemon .buscadorPokemonInput::-webkit-search-cancel-button {
+  display: none;
+}
+.mainIndex .mainIndexTablaConCartas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 3%;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub {
+  /* ordernar por */
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasOrdernarPor {
+  margin: 2% 0px 5% 0px;
+  border: 1px solid white;
+  padding: 3% 0px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.139);
+  font-weight: 200;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasOrdernarPor .mainIndexTablaConCartasOrdernarPorText {
+  color: white;
+  text-shadow: 0px 0px 5px white;
+  font-size: 1.5rem;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasOrdernarPor .mainIndexTablaConCartasOrdernarPorDiv .btnOrdernar {
+  color: white;
+  font-weight: 150;
+  transition: 0.3s;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasOrdernarPor .mainIndexTablaConCartasOrdernarPorDiv .btnOrdernar:focus {
+  border: 1px solid white;
+  font-weight: 500;
+  text-shadow: 0px 0px 10px white;
+}
+.mainIndex .btnCargarMas {
+  background-color: white;
+  color: rgb(79, 64, 249);
+  margin: 5% 0px;
+}
+
+.outfit-fontOne {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/*# sourceMappingURL=style.css.map */

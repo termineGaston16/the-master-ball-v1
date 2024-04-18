@@ -1,3 +1,7 @@
+/* buscas "a" en orden creciente y no aparecen todos. */
+/* tras realizar la segunda busqueda consecutiva, salen errores al ordenarlos */
+
+
 /* click en search (funciones) */
 let pokemonesBuscados = [];
 let listaDividida = [];
@@ -113,9 +117,9 @@ document.querySelector("#btnCargarMasCartas").addEventListener("click", function
 function restaurarMenu() {
 
     document.querySelector("#menuConBotones").innerHTML = `
-        <button type="button" class="btn" id="btnBusquedaPokemon">Búsqueda Pokémon</button>
-        <button type="button" class="btn" id="btnFiltrarPokemones">Filtrar Pokemones</button>
-        <button type="button" class="btn" id="btnAnalisisAleatorio">Análisis Aleatorio</button>
+        <button type="button" class="btn btnMenuIndex" id="btnBusquedaPokemon">Búsqueda Pokémon</button>
+        <button type="button" class="btn btnMenuIndex" id="btnFiltrarPokemones">Filtrar Pokemones</button>
+        <button type="button" class="btn btnMenuIndex" id="btnAnalisisAleatorio">Análisis Aleatorio</button>
     `;
 
     /* re-ajustar el index, borrando los resultados y ocultar el boton de cargar más y ordernar por */
@@ -136,40 +140,81 @@ function restaurarMenu() {
 
     /* busqueda pokemon */
     document.querySelector("#btnBusquedaPokemon").addEventListener("mouseover", () => {
-        document.querySelector("#tituloDescriptivo").innerHTML = `
-        Realiza una búsqueda global mediante el nombre del Pokémon.
-        `
+
+        document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.3s ease forwards";
+
+        setTimeout(function () {
+            document.querySelector("#tituloDescriptivo").innerHTML = `
+                Realiza una búsqueda global mediante el nombre del Pokémon.
+            `
+            document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.3s ease forwards";
+        }, 300);
     })
     document.querySelector("#btnBusquedaPokemon").addEventListener("mouseleave", () => {
-        document.querySelector("#tituloDescriptivo").innerHTML = `
-        ¿Qué deseas hacer?
-        `
+
+        document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.3s ease forwards";
+
+        setTimeout(function () {
+            document.querySelector("#tituloDescriptivo").innerHTML = `
+                ¿Qué deseas hacer?
+            `
+            document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.3s ease forwards";
+        }, 300);
+
     })
 
     /* ---------------- */
     /* filtrar pokemones */
     document.querySelector("#btnFiltrarPokemones").addEventListener("mouseover", () => {
-        document.querySelector("#tituloDescriptivo").innerHTML = `
-        Muestra los Pokemones según sus atributos especiales.
-        `
+
+        document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.3s ease forwards";
+
+        setTimeout(function () {
+            document.querySelector("#tituloDescriptivo").innerHTML = `
+                Muestra los Pokemones según sus atributos especiales.
+            `
+            document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.3s ease forwards";
+        }, 300);
+
     })
     document.querySelector("#btnFiltrarPokemones").addEventListener("mouseleave", () => {
-        document.querySelector("#tituloDescriptivo").innerHTML = `
-        ¿Qué deseas hacer?
-        `
+
+        document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.3s ease forwards";
+
+        setTimeout(function () {
+            document.querySelector("#tituloDescriptivo").innerHTML = `
+                ¿Qué deseas hacer?
+            `
+            document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.3s ease forwards";
+        }, 300);
+
     })
 
     /* ---------------- */
     /* analisis aleatorio */
     document.querySelector("#btnAnalisisAleatorio").addEventListener("mouseover", () => {
-        document.querySelector("#tituloDescriptivo").innerHTML = `
-        Muestra de Pokemones aleatorios.
-        `
+
+        document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.3s ease forwards";
+
+        setTimeout(function () {
+            document.querySelector("#tituloDescriptivo").innerHTML = `
+                Muestra de Pokemones aleatorios.
+            `
+            document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.3s ease forwards";
+        }, 300);
+
     })
     document.querySelector("#btnAnalisisAleatorio").addEventListener("mouseleave", () => {
-        document.querySelector("#tituloDescriptivo").innerHTML = `
-        ¿Qué deseas hacer?
-        `
+
+        document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.3s ease forwards";
+
+        setTimeout(function () {
+            document.querySelector("#tituloDescriptivo").innerHTML = `
+                ¿Qué deseas hacer?
+            `
+            document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.3s ease forwards";
+        }, 300);
+
     })
 
     /* --------------------------------- */
@@ -180,120 +225,142 @@ function restaurarMenu() {
         document.querySelector("#tituloDescriptivo").innerHTML = `
             Realiza una búsqueda global mediante el nombre del Pokémon.
         `
+
         /* borrar los botones y que aparezca el buscador */
+        document.querySelector("#menuConBotones").style.animation = "desaparecer 0.2s ease forwards";
         document.querySelector("#menuConBotones").innerHTML = ""
-        document.querySelector("#menuConBotones").innerHTML = `
-        <div>
-            <button class="btn btn-outline-success" type="submit" id="btnVolverMainPokedex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-                </svg>
-            </button>
-            <input class="form-control me-2" type="search" id="inputBuscadorPokemon">
-            <button class="btn btn-outline-success" type="submit" id="btnSearchBuscadorPokemon">Search</button>
-        </div>
-        `
-        /* Se agrega un event listener al botón de volver */
-        document.querySelector("#btnVolverMainPokedex").addEventListener("click", () => {
-            restaurarMenu();
-        });
 
-        /* --------------------------------- */
-        /* click en search */
-        document.querySelector("#btnSearchBuscadorPokemon").addEventListener("click", () => {
+        setTimeout(function () {
+            document.querySelector("#menuConBotones").innerHTML = `
+                <div class="buscadorPokemon">
+                    <button class="btn buscadorPokemonBtnReturn" type="submit" id="btnVolverMainPokedex">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                        </svg>
+                    </button>
+                    <input class="form-control me-2 buscadorPokemonInput" type="search" id="inputBuscadorPokemon" autocomplete="off">
+                    <button class="btn buscadorPokemonBtnSearch" type="submit" id="btnSearchBuscadorPokemon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </div>
+                `
+            /* Se agrega un event listener al botón de volver */
+            document.querySelector("#btnVolverMainPokedex").addEventListener("click", () => {
+                document.querySelector("#menuConBotones").style.animation = "desaparecer 0.2s ease forwards";
 
-            /* re-ajustar el index, borrando los resultados y ocultar el boton de cargar más y ordernar por */
-            document.querySelector("#tablaDeCartas").innerHTML = "";
-            if (!document.querySelector("#btnCargarMasCartas").classList.contains("d-none")) {
-                document.querySelector("#btnCargarMasCartas").classList.add("d-none")
-            }
-            if (!document.querySelector("#menuOrdenador").classList.contains("d-none")) {
-                document.querySelector("#menuOrdenador").classList.add("d-none")
-            }
-            ordenDecreciente = false;
-            ordenCreciente = false;
-            ordenAlfabeticamente = false;
-            ordenAlfaInverso = false;
+                setTimeout(function () {
+                    restaurarMenu();
+                    document.querySelector("#menuConBotones").style.animation = "aparecer 0.2s ease forwards";
+                }, 200);
+            });
 
-            /* obtener la palabra escrita */
-            let palabraEscrita = null;
-            palabraEscrita = document.querySelector("#inputBuscadorPokemon").value;
+            /* --------------------------------- */
+            /* click en search */
+            document.querySelector("#btnSearchBuscadorPokemon").addEventListener("click", () => {
 
-            /* si la palabra está vacía */
-            if (palabraEscrita == "") {
-                document.querySelector("#tituloDescriptivo").innerHTML = `Introduce una palabra.`
-                return;
-            }
+                /* re-ajustar el index, borrando los resultados y ocultar el boton de cargar más y ordernar por */
+                document.querySelector("#tablaDeCartas").innerHTML = "";
+                if (!document.querySelector("#btnCargarMasCartas").classList.contains("d-none")) {
+                    document.querySelector("#btnCargarMasCartas").classList.add("d-none")
+                }
+                if (!document.querySelector("#menuOrdenador").classList.contains("d-none")) {
+                    document.querySelector("#menuOrdenador").classList.add("d-none")
+                }
+                ordenDecreciente = false;
+                ordenCreciente = false;
+                ordenAlfabeticamente = false;
+                ordenAlfaInverso = false;
 
-            /* obtener una lista de pokemones según la palabra */
-            pokemonesBuscados = [];
-            listaDividida = [];
-            inicio = 0;
-            final = 10;
-            document.querySelector("#tituloDescriptivo").innerHTML = `
-                Realiza una búsqueda global mediante el nombre del Pokémon.
-            `
+                /* obtener la palabra escrita */
+                let palabraEscrita = null;
+                palabraEscrita = document.querySelector("#inputBuscadorPokemon").value;
 
-            fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
-                .then(response => response.json())
-                .then(todosLosPokemones => {
+                /* si la palabra está vacía */
+                if (palabraEscrita == "") {
+                    document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.2s ease forwards";
 
-                    pokemonesBuscados = todosLosPokemones.results.filter(pokemon => pokemon.name.toLowerCase().includes(palabraEscrita.toLowerCase()));
+                    setTimeout(function () {
+                        document.querySelector("#tituloDescriptivo").innerHTML = `Introduce una palabra.`
+                        document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.2s ease forwards";
+                    }, 200);
+                    return;
+                }
 
-                    /* si no hubo resultado */
-                    if (pokemonesBuscados.length == 0) {
-                        document.querySelector("#tituloDescriptivo").innerHTML = `Ningún Pokémon coincide con tu búsqueda.`
-                        return;
-                    }
+                /* obtener una lista de pokemones según la palabra */
+                pokemonesBuscados = [];
+                listaDividida = [];
+                inicio = 0;
+                final = 10;
 
-                    /* almacenarla como lista original */
-                    listaOriginal = pokemonesBuscados;
+                fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+                    .then(response => response.json())
+                    .then(todosLosPokemones => {
 
-                    /* desocultar el menu organizador */
-                    document.querySelector("#menuOrdenador").classList.remove("d-none")
+                        pokemonesBuscados = todosLosPokemones.results.filter(pokemon => pokemon.name.toLowerCase().includes(palabraEscrita.toLowerCase()));
 
-                    /* si el tamaño de la lista es menor o igual que diez cargar todos los pokemones. 
-                        De lo contrario, cargar cada diez en otra lista */
-                    if (pokemonesBuscados.length <= 10) {
+                        /* si no hubo resultado */
+                        if (pokemonesBuscados.length == 0) {
+                            document.querySelector("#tituloDescriptivo").style.animation = "desaparecer 0.2s ease forwards";
 
-                        let listaNueva = pokemonesBuscados.slice();
-                        let listaOrga = [];
-
-                        /* cargar listas ordenadas */
-                        if (ordenDecreciente) {
-                            listaOrga = listaNueva.reverse();
-                        }
-                        if (ordenCreciente) {
-                            listaOrga = listaNueva;
-                        }
-                        if (ordenAlfabeticamente) {
-                            listaOrga = listaNueva.sort((a, b) => a.name.localeCompare(b.name));;
-                        }
-                        if (ordenAlfaInverso) {
-                            listaOrga = listaNueva.sort((a, b) => b.name.localeCompare(a.name));;
+                            setTimeout(function () {
+                                document.querySelector("#tituloDescriptivo").innerHTML = `Ningún Pokémon coincide con tu búsqueda.`
+                                document.querySelector("#tituloDescriptivo").style.animation = "aparecer 0.2s ease forwards";
+                            }, 200);
+                            return;
                         }
 
-                        if (listaOrga.length != 0) {
-                            cargarPokemones(listaOrga)
+                        /* almacenarla como lista original */
+                        listaOriginal = pokemonesBuscados;
+
+                        /* desocultar el menu organizador */
+                        document.querySelector("#menuOrdenador").classList.remove("d-none")
+
+                        /* si el tamaño de la lista es menor o igual que diez cargar todos los pokemones. 
+                            De lo contrario, cargar cada diez en otra lista */
+                        if (pokemonesBuscados.length <= 10) {
+
+                            let listaNueva = pokemonesBuscados.slice();
+                            let listaOrga = [];
+
+                            /* cargar listas ordenadas */
+                            if (ordenDecreciente) {
+                                listaOrga = listaNueva.reverse();
+                            }
+                            if (ordenCreciente) {
+                                listaOrga = listaNueva;
+                            }
+                            if (ordenAlfabeticamente) {
+                                listaOrga = listaNueva.sort((a, b) => a.name.localeCompare(b.name));;
+                            }
+                            if (ordenAlfaInverso) {
+                                listaOrga = listaNueva.sort((a, b) => b.name.localeCompare(a.name));;
+                            }
+
+                            if (listaOrga.length != 0) {
+                                cargarPokemones(listaOrga)
+                            } else {
+                                cargarPokemones(pokemonesBuscados)
+                            }
+
                         } else {
-                            cargarPokemones(pokemonesBuscados)
+
+                            /* cargar los primeros diez */
+                            cargarMasCartas(listaDividida, pokemonesBuscados, inicio, final, cargarPokemones);
+
+                            /* hacer visible el botón de cargar más pokemones */
+                            document.querySelector("#btnCargarMasCartas").classList.remove("d-none");
                         }
 
-                    } else {
 
-                        /* cargar los primeros diez */
-                        cargarMasCartas(listaDividida, pokemonesBuscados, inicio, final, cargarPokemones);
+                    })
+                    .catch(error => console.error('Error al cargar todos los pokemones: ', error));
 
-                        /* hacer visible el botón de cargar más pokemones */
-                        document.querySelector("#btnCargarMasCartas").classList.remove("d-none");
-                    }
+            })
 
-
-                })
-                .catch(error => console.error('Error al cargar todos los pokemones: ', error));
-
-        })
-
+            document.querySelector("#menuConBotones").style.animation = "aparecer 0.2s ease forwards";
+        }, 200);
     })
 }
 
@@ -476,7 +543,7 @@ function cargarPokemones(listaPokemon) {
                             `
                         }
 
-                        /* evoluciones */
+                        /* evoluciones 
                         fetch(pokeSpecies.evolution_chain.url)
                             .then(response => response.json())
                             .then(cicloEvolutivo => {
@@ -485,18 +552,18 @@ function cargarPokemones(listaPokemon) {
                                 primeraEvolucion = cicloEvolutivo.chain.species.name;
 
                                 let fichaEvolutiva = document.createElement("div");
-                                fichaEvolutiva.innerHTML=`
+                                fichaEvolutiva.innerHTML = `
                                     ${primeraEvolucion}
                                 `
-                                document.getElementById("fichaDeEvoluciones"+pokemon.name).append(fichaEvolutiva)
+                                document.getElementById("fichaDeEvoluciones" + pokemon.name).append(fichaEvolutiva)
 
-                                /* verificar si hay mas evoluciones */
+                                /* verificar si hay mas evoluciones 
                                 do {
-                                    
+
                                 } while (condition);
 
                             })
-                            .catch(error => console.error('Error al cargar (pokeSpecies.evolution_chain.url): ', error));
+                            .catch(error => console.error('Error al cargar (pokeSpecies.evolution_chain.url): ', error));*/
 
                     })
                     .catch(error => console.error('Error al cargar (datosPokemon.species): ', error));

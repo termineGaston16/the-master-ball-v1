@@ -372,39 +372,43 @@ function cargarPokemones(listaPokemon) {
 
         let planillaCartaPokemon = document.createElement("div")
         planillaCartaPokemon.classList.add("col")
+        planillaCartaPokemon.classList.add("cartaPokemonCol")
         planillaCartaPokemon.id = "cartaDe" + pokemon.name;
 
         /* darle forma a la carta */
         planillaCartaPokemon.innerHTML = `
-            <div>
+            <div class="cartaPokemon">
+
                 <!-- CARTA -->
-                <div>
+                <div class="cartaPokemonCarta">
+
                     <!-- header -->
-                    <div>
+                    <div class="cartaPokemonHeader">
 
                         <!-- mini header -->
-                        <div>
+                        <div class="cartaPokemonHeaderMiniHeader">
+
                             <!-- evolución del pokemon -->
-                            <div>   
-                                <p id="evolucionDePokemonAnterior${pokemon.name}"></p>
+                            <div class="cartaPokemonHeaderMiniHeaderEvolPokemon">   
+                                <p id="evolucionDePokemonAnterior${pokemon.name}" class="cartaPokemonHeaderMiniHeaderEvolPokemonEvolAnte"></p>
                             </div>  
                             
                             <hr>
 
                             <!-- foto chibi, nombre pokemon, id, hp base -->
-                            <div>   
-                                <img src="" alt="fotoChibi${pokemon.name}" id="fotoChibi${pokemon.name}">
-                                <p id="nombreDelPokemon${pokemon.name}"></p>
-                                <p id="idDelPokemon${pokemon.name}"></p>
-                                <p id="hpBaseDelPokemon${pokemon.name}"></p>
+                            <div class="cartaPokemonHeaderMiniHeaderAtributosGenerales">   
+                                <img src="" alt="fotoChibi${pokemon.name}" id="fotoChibi${pokemon.name}" class="cartaPokemonHeaderMiniHeaderAtributosGeneralesImgChibi">
+                                <p id="nombreDelPokemon${pokemon.name}" class="cartaPokemonHeaderMiniHeaderAtributosGeneralesName"></p>
+                                <p id="idDelPokemon${pokemon.name}" class="cartaPokemonHeaderMiniHeaderAtributosGeneralesId"></p>
+                                <p id="hpBaseDelPokemon${pokemon.name}" class="cartaPokemonHeaderMiniHeaderAtributosGeneralesHPbase"></p>
                             </div>
                         </div>
 
                         <!-- img pokemon -->
-                        <img src="" alt="fotoNormal${pokemon.name}" id="fotoNormal${pokemon.name}">
+                        <img src="" alt="fotoNormal${pokemon.name}" id="fotoNormal${pokemon.name}" class="cartaPokemonHeaderImgPoke">
 
                         <!-- tipos de pokemon -->
-                        <div class="row row-cols-3" id="tiposDePokemonPara${pokemon.name}"></div>
+                        <div class="row row-cols-3" id="tiposDePokemonPara${pokemon.name}" class="cartaPokemonHeaderTiposPoke"></div>
                     </div>
 
                     <!-- main -->

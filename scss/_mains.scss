@@ -87,7 +87,7 @@
         flex-direction: column;
         text-align: center;
         margin-top: 3%;
-     
+
         .mainIndexTablaConCartasSub {
 
             /* ordernar por */
@@ -111,10 +111,81 @@
                         font-weight: 150;
                         transition: 0.3s;
 
-                        &:focus{
-                           border: 1px solid white;
-                           font-weight: 500;
+                        &:focus {
+                            border: 1px solid white;
+                            font-weight: 500;
                             text-shadow: 0px 0px 10px white;
+                        }
+                    }
+                }
+            }
+
+            /* lista de cartas */
+            .mainIndexTablaConCartasListaDeCartas {
+                display: flex;
+                align-items: start;
+                justify-content: center;
+                padding: 5%;
+
+                .cartaPokemonCol {
+                    height: 150vh;
+                    margin: 5% 0px;
+
+                    /* darle forma a la carta */
+                    .cartaPokemon {
+                        height: 150vh;
+
+                        /* carta */
+                        .cartaPokemonCarta {
+                            background: linear-gradient(to bottom, rgb(115, 230, 152), rgb(100, 69, 226));
+                            border-radius: 25px;
+                            padding: 5%;
+                            height: 150vh;
+
+
+                            /* header */
+                            .cartaPokemonHeader {
+
+                                /* mini header */
+                                .cartaPokemonHeaderMiniHeader {
+
+                                    /* evolución del pokemon */
+                                    .cartaPokemonHeaderMiniHeaderEvolPokemon {
+                                        .cartaPokemonHeaderMiniHeaderEvolPokemonEvolAnte {}
+                                    }
+
+                                    /* foto chibi, nombre pokemon, id, hp base */
+                                    .cartaPokemonHeaderMiniHeaderAtributosGenerales {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: start;
+                                        gap: 10%;
+
+                                        .cartaPokemonHeaderMiniHeaderAtributosGeneralesImgChibi {
+                                            width: 20%;
+                                            background-color: white;
+                                            border-radius: 1000px;
+                                            overflow: hidden;
+                                            box-shadow: 0px 0px 10px white;
+                                        }
+
+                                        .cartaPokemonHeaderMiniHeaderAtributosGeneralesName {
+                                            
+                                        }
+
+                                        .cartaPokemonHeaderMiniHeaderAtributosGeneralesId {}
+
+                                        .cartaPokemonHeaderMiniHeaderAtributosGeneralesHPbase {}
+                                    }
+                                }
+
+                                /* img pokemon */
+                                .cartaPokemonHeaderImgPoke {}
+
+                                /* tipos de pokemon */
+                                .cartaPokemonHeaderTiposPoke {}
+
+                            }
                         }
                     }
                 }
@@ -123,7 +194,7 @@
     }
 
     /* boton cargar más */
-    .btnCargarMas{
+    .btnCargarMas {
         background-color: white;
         color: rgb(79, 64, 249);
         margin: 5% 0px;

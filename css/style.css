@@ -164,6 +164,7 @@ html {
 }
 .mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub {
   /* ordernar por */
+  /* lista de cartas */
 }
 .mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasOrdernarPor {
   margin: 2% 0px 5% 0px;
@@ -187,6 +188,50 @@ html {
   border: 1px solid white;
   font-weight: 500;
   text-shadow: 0px 0px 10px white;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  padding: 5%;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol {
+  height: 150vh;
+  margin: 5% 0px;
+  /* darle forma a la carta */
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol .cartaPokemon {
+  height: 150vh;
+  /* carta */
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol .cartaPokemon .cartaPokemonCarta {
+  background: linear-gradient(to bottom, rgb(115, 230, 152), rgb(100, 69, 226));
+  border-radius: 25px;
+  padding: 5%;
+  height: 150vh;
+  /* header */
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol .cartaPokemon .cartaPokemonCarta .cartaPokemonHeader {
+  /* mini header */
+  /* img pokemon */
+  /* tipos de pokemon */
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol .cartaPokemon .cartaPokemonCarta .cartaPokemonHeader .cartaPokemonHeaderMiniHeader {
+  /* evolución del pokemon */
+  /* foto chibi, nombre pokemon, id, hp base */
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol .cartaPokemon .cartaPokemonCarta .cartaPokemonHeader .cartaPokemonHeaderMiniHeader .cartaPokemonHeaderMiniHeaderAtributosGenerales {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10%;
+}
+.mainIndex .mainIndexTablaConCartas .mainIndexTablaConCartasSub .mainIndexTablaConCartasListaDeCartas .cartaPokemonCol .cartaPokemon .cartaPokemonCarta .cartaPokemonHeader .cartaPokemonHeaderMiniHeader .cartaPokemonHeaderMiniHeaderAtributosGenerales .cartaPokemonHeaderMiniHeaderAtributosGeneralesImgChibi {
+  width: 20%;
+  background-color: white;
+  border-radius: 1000px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px white;
 }
 .mainIndex .btnCargarMas {
   background-color: white;
